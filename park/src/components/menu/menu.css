@@ -1,0 +1,13 @@
+.container {
+    position: relative;
+  }
+
+.menu {
+    position: absolute;
+    right: 0;
+    top: 0; /* ou bottom: 0; */
+   
+  }
+button :hover{
+    opacity: 0.4;
+}
