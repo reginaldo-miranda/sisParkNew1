@@ -7,11 +7,13 @@
     margin-top: 30px;
   }
   
-  .ser-container input {
+  .ser-container .descricao {
     padding: 8px;
     font-size: 12px;
     width: 500px;
     margin-top: 5px;
+    border: solid 1px;
+    border-radius: 5px;
 
   }
 
@@ -21,6 +23,7 @@
     width: 50px;
     margin-left: 5px;
     border: solid 1px;
+    border-radius: 5px;
   }
   
 

@@ -91,7 +91,7 @@ function InputHora() {
 
 export default InputHora;
 */
-
+/* versao boa , mas imprimi a hora cheia e nao mostra na tela
 import React, { useState, useEffect, useRef } from 'react';
 
 function CupomEstacionamento() {
@@ -179,3 +179,251 @@ function CupomEstacionamento() {
 }
 
 export default CupomEstacionamento;
+*/
+/* versao boa completa
+import React, { useState, useEffect, useRef } from 'react';
+
+function CupomEstacionamento() {
+  const [horaEntrada, setHoraEntrada] = useState('');
+  const [horaSaida, setHoraSaida] = useState('');
+  const [tempoTotal, setTempoTotal] = useState('');
+  const [valorTotal, setValorTotal] = useState(0);
+  const cupomRef = useRef(null);
+
+  useEffect(() => {
+    if (horaEntrada && horaSaida) {
+      const [hIn, mIn] = horaEntrada.split(':').map(Number);
+      const [hOut, mOut] = horaSaida.split(':').map(Number);
+
+      const entrada = new Date();
+      entrada.setHours(hIn, mIn, 0, 0);
+
+      const saida = new Date();
+      saida.setHours(hOut, mOut, 0, 0);
+
+      if (saida < entrada) {
+        setTempoTotal('Saída antes da entrada');
+        setValorTotal(0);
+        return;
+      }
+
+      const diffMs = saida - entrada;
+      const diffHoras = diffMs / 1000 / 60 / 60; // decimal
+
+      const horas = Math.floor(diffHoras);
+      const minutos = Math.round((diffHoras - horas) * 60);
+      const valor = diffHoras * 5;
+
+      setTempoTotal(`${horas}h ${minutos}min`);
+      setValorTotal(valor);
+    }
+  }, [horaEntrada, horaSaida]);
+
+  const handlePrint = () => {
+    const conteudo = gerarCupomTexto();
+    const janela = window.open('', '', 'width=600,height=800');
+    janela.document.write(`<pre style="font-family: monospace">${conteudo}</pre>`);
+    janela.document.close();
+    janela.print();
+  };
+
+  const gerarCupomTexto = () => {
+    const linha = (texto = '') => texto.padEnd(80, ' ') + '\n';
+    const centro = (texto = '') =>
+      texto.padStart((80 + texto.length) / 2, ' ').padEnd(80, ' ') + '\n';
+
+    let texto = '';
+    texto += centro('SIS PARK ESTACIONAMENTO');
+    texto += centro('CUPOM DE ESTACIONAMENTO');
+    texto += linha('-'.repeat(80));
+    texto += linha(`Entrada: ${horaEntrada}`);
+    texto += linha(`Saída  : ${horaSaida}`);
+    texto += linha(`Tempo  : ${tempoTotal}`);
+    texto += linha(`Valor  : R$ ${valorTotal.toFixed(2)}`);
+    texto += linha('-'.repeat(80));
+    texto += centro('OBRIGADO POR UTILIZAR!');
+    texto += '\n\n\n';
+
+    return texto;
+  };
+
+  return (
+    <>
+      <div>
+        <label>Hora de entrada:</label>
+        <input type="time" value={horaEntrada} onChange={(e) => setHoraEntrada(e.target.value)} />
+      </div>
+
+      <div>
+        <label>Hora de saída:</label>
+        <input type="time" value={horaSaida} onChange={(e) => setHoraSaida(e.target.value)} />
+      </div>
+
+      {/* Mostrar cupom na tela /}
+      <pre style={{ fontFamily: 'monospace', border: '1px solid #ccc', padding: '10px', marginTop: '20px' }}>
+        {gerarCupomTexto()}
+      </pre>
+
+      <button onClick={handlePrint} style={{ marginTop: '10px' }}>
+        Imprimir Cupom
+      </button>
+    </>
+  );
+}
+
+export default CupomEstacionamento;
+*/
+
+import React, { useState, useEffect, useRef } from 'react';
+//import Impressao from '../components/Impressao';
+
+import Impressao from "../../components/Impressao";
+import "../Veiculos/Veiculos.css"; // ou "../Veiculos/Veiculos.css" dependendo do caminho
+
+
+
+function CupomEstacionamento() {
+  const [horaEntrada, setHoraEntrada] = useState('');
+  const [horaSaida, setHoraSaida] = useState('');
+  const [tempoTotal, setTempoTotal] = useState('');
+  const [valorTotal, setValorTotal] = useState(0);
+  const impressaoRef = useRef();
+
+  useEffect(() => {
+    if (horaEntrada && horaSaida) {
+      const [hIn, mIn] = horaEntrada.split(':').map(Number);
+      const [hOut, mOut] = horaSaida.split(':').map(Number);
+
+      const entrada = new Date();
+      entrada.setHours(hIn, mIn, 0, 0);
+
+      const saida = new Date();
+      saida.setHours(hOut, mOut, 0, 0);
+
+      if (saida < entrada) {
+        setTempoTotal('Saída antes da entrada');
+        setValorTotal(0);
+        return;
+      }
+
+      const diffMs = saida - entrada;
+      const diffHoras = diffMs / 1000 / 60 / 60;
+
+      const horas = Math.floor(diffHoras);
+      const minutos = Math.round((diffHoras - horas) * 60);
+      const valor = diffHoras * 5;
+
+      setTempoTotal(`${horas}h ${minutos}min`);
+      setValorTotal(valor);
+    }
+  }, [horaEntrada, horaSaida]);
+
+  const gerarCupomTexto = () => {
+    const linha = (texto = '') => texto.padEnd(80, ' ') + '\n';
+    const centro = (texto = '') =>
+      texto.padStart((80 + texto.length) / 2, ' ').padEnd(80, ' ') + '\n';
+
+    let texto = '';
+    texto += centro('SIS PARK ESTACIONAMENTO');
+    texto += centro('CUPOM DE ESTACIONAMENTO');
+    texto += linha('-'.repeat(80));
+    texto += linha(`Entrada: ${horaEntrada}`);
+    texto += linha(`Saída  : ${horaSaida}`);
+    texto += linha(`Tempo  : ${tempoTotal}`);
+    texto += linha(`Valor  : R$ ${valorTotal.toFixed(2)}`);
+    texto += linha('-'.repeat(80));
+    texto += centro('OBRIGADO POR UTILIZAR!');
+    texto += '\n\n\n';
+
+    return texto;
+  };
+
+  const handlePrint = () => {
+    if (impressaoRef.current) {
+      impressaoRef.current.imprimir();
+    }
+  };
+
+  return (
+    <>
+  
+    <div className="container">
+      <h1>Controle de Estacionamento</h1>
+
+      {/* TODOS os campos agrupados corretamente */}
+      <div className="formulario">
+        <div className="placa">
+          <label>Placa do Veiculo</label>
+          <input type="text"/>
+        </div>
+       
+        <div className="campo">
+          <label>Hora de entrada:</label>
+          <input
+            type="time"
+            value={horaEntrada}
+            onChange={(e) => setHoraEntrada(e.target.value)}
+          />
+        </div>
+
+        <div className="campo">
+          <label>Hora de saída:</label>
+          <input
+            type="time"
+            value={horaSaida}
+            onChange={(e) => setHoraSaida(e.target.value)}
+          />
+        </div>
+      </div>
+
+      {/* Cupom visível na tela */}
+      <Impressao ref={impressaoRef} conteudo={gerarCupomTexto()} />
+
+      <button className="botao-imprimir" onClick={handlePrint}>
+        Imprimir Cupom
+      </button>
+    </div>
+  </>
+);
+
+}
+
+export default CupomEstacionamento;
+
+/*
+<div>
+        <label>Hora de entrada:</label>
+        <input type="time" value={horaEntrada} onChange={(e) => setHoraEntrada(e.target.value)} />
+      </div>
+
+      <div>
+        <label>Hora de saída:</label>
+        <input type="time" value={horaSaida} onChange={(e) => setHoraSaida(e.target.value)} />
+      </div>
+
+      <Impressao ref={impressaoRef} conteudo={gerarCupomTexto()} />
+
+      <button onClick={handlePrint} style={{ marginTop: '10px' }}>
+        Imprimir Cupom
+      </button>
+
+*/
+
+/* estava fucnionando
+
+  <div className="formulario">
+    <label>Hora de entrada:</label>
+    <input type="time" value={horaEntrada} onChange={(e) => setHoraEntrada(e.target.value)} />
+      </div>
+
+    <label>Hora de saída:</label>
+    <input type="time" value={horaSaida} onChange={(e) => setHoraSaida(e.target.value)} />
+  </div>
+
+  <Impressao ref={impressaoRef} conteudo={gerarCupomTexto()} />
+
+  <button className="botao-imprimir" onClick={handlePrint}>
+    Imprimir Cupom
+  </button>
+
+*/

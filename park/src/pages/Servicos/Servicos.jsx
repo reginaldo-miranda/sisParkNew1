@@ -9,7 +9,7 @@ export default function Servicos(){
           <div>
             <label>Descricao do serviço</label>
           </div>
-           <input type="text" id="" />
+           <input type="text" id="" className="descricao" />
            
            <input type="text" id="" className="valor" />
         </div>
