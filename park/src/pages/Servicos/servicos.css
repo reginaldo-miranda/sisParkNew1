@@ -1,0 +1,59 @@
+.ser-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Espaçamento entre os inputs */
+    margin-bottom: 15px; /* Espaço abaixo do container antes do botão */
+    margin-left: 20px;
+    margin-top: 30px;
+  }
+  
+  .ser-container input {
+    padding: 8px;
+    font-size: 12px;
+    width: 500px;
+    margin-top: 5px;
+
+  }
+
+  .ser-container .valor {
+    padding: 8px;
+    font-size: 12px;
+    width: 50px;
+    margin-left: 5px;
+    border: solid 1px;
+  }
+  
+
+.titulo-serv{
+    display: flex;
+    background-color: aqua;
+    justify-content: center;
+  
+}
+.botao{
+    display: flex;
+    margin: 20px;
+    width: 80px;
+    height: 35px;
+    border-radius: 5px;
+    background: #a9f5aa;
+    align-items: center;
+    justify-content: center;
+    border: none;
+
+}
+.botao:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: 120px; /* ajuste conforme a altura do header */
+    right: 16px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    border-radius: 8px;
+    z-index: 1000;
+  }

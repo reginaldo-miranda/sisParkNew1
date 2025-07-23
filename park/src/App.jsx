@@ -34,7 +34,6 @@ import './App.css';
 function App() {
   return (
     <BrowserRouter>
-      <Menu />
       <Header />
       <Routes />
     </BrowserRouter>

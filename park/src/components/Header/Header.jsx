@@ -48,7 +48,7 @@ export default function Header() {
               <Link to="/servicos">Serviços</Link>
             </li>
             <li>
-              <Link to="/veiculos">Veículos</Link>
+              <Link to="/Veiculos">Veículos</Link>
             </li>
             <li>
               <Link to="/concluidos">Concluídos</Link>

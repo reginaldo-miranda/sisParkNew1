@@ -19,13 +19,16 @@ export default function AppRoutes() {
 
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home/Home";        // corrigido
-import Servicos from "../pages/Home/Servicos"
+import Servicos from "../pages/Servicos/Servicos";
+import Veiculos from "../pages/Veiculos/Veiculos"; // adicionado
+
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/servicos" element={<Servicos />} />
+      <Route path="/veiculos" element={<Veiculos />} />
     </Routes>
   );
 }

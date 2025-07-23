@@ -1,5 +1,5 @@
 
-.header{
+/*.header{
    display: flex;
     background-color: aqua;
     position: relative;
@@ -7,7 +7,7 @@
     align-items: center; 
     height: 50px;
      
-}
+}*/
 .header button {
     position: absolute;
     right: 0;
@@ -40,7 +40,7 @@
   
   .menu-dropdown {
     position: absolute;
-    top: 90px; /* ajuste conforme a altura do header */
+    top: 95px; /* ajuste conforme a altura do header */
     right: 16px;
     background-color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
