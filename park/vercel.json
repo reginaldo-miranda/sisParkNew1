@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm install && npm run build && npm run docs:build",
+  "buildCommand": "npm install && npm run build && npx vitepress build docs",
   "devCommand": "npm run dev",
   "outputDirectory": "dist",
   "framework": "vite"
