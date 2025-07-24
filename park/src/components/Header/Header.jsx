@@ -18,7 +18,7 @@ export default function Header(){
 //------------------------------------------------------------
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import '../../components/footer/footer'
 import "../../components/Header/Header.css";
 import icoMenu from "../imagens/iconeMenu.svg";
 
@@ -59,6 +59,7 @@ export default function Header() {
           </ul>
         </div>
       )}
+          
     </>
   );
 }

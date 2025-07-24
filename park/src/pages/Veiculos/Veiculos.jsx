@@ -1,4 +1,4 @@
-import "../Veiculos/Veiculos.css"
+
 /*
 export default function Veiculos() {
     return (
@@ -275,12 +275,8 @@ export default CupomEstacionamento;
 */
 
 import React, { useState, useEffect, useRef } from 'react';
-//import Impressao from '../components/Impressao';
-
 import Impressao from "../../components/Impressao";
 import "../Veiculos/Veiculos.css"; // ou "../Veiculos/Veiculos.css" dependendo do caminho
-
-
 
 function CupomEstacionamento() {
   const [horaEntrada, setHoraEntrada] = useState('');
@@ -390,40 +386,3 @@ function CupomEstacionamento() {
 
 export default CupomEstacionamento;
 
-/*
-<div>
-        <label>Hora de entrada:</label>
-        <input type="time" value={horaEntrada} onChange={(e) => setHoraEntrada(e.target.value)} />
-      </div>
-
-      <div>
-        <label>Hora de saída:</label>
-        <input type="time" value={horaSaida} onChange={(e) => setHoraSaida(e.target.value)} />
-      </div>
-
-      <Impressao ref={impressaoRef} conteudo={gerarCupomTexto()} />
-
-      <button onClick={handlePrint} style={{ marginTop: '10px' }}>
-        Imprimir Cupom
-      </button>
-
-*/
-
-/* estava fucnionando
-
-  <div className="formulario">
-    <label>Hora de entrada:</label>
-    <input type="time" value={horaEntrada} onChange={(e) => setHoraEntrada(e.target.value)} />
-      </div>
-
-    <label>Hora de saída:</label>
-    <input type="time" value={horaSaida} onChange={(e) => setHoraSaida(e.target.value)} />
-  </div>
-
-  <Impressao ref={impressaoRef} conteudo={gerarCupomTexto()} />
-
-  <button className="botao-imprimir" onClick={handlePrint}>
-    Imprimir Cupom
-  </button>
-
-*/
