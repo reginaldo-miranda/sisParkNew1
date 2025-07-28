@@ -1,4 +1,3 @@
-
 /*
 export default function Veiculos() {
     return (
@@ -274,21 +273,21 @@ function CupomEstacionamento() {
 export default CupomEstacionamento;
 */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import Impressao from "../../components/Impressao";
 import "../Veiculos/Veiculos.css"; // ou "../Veiculos/Veiculos.css" dependendo do caminho
 
 function CupomEstacionamento() {
-  const [horaEntrada, setHoraEntrada] = useState('');
-  const [horaSaida, setHoraSaida] = useState('');
-  const [tempoTotal, setTempoTotal] = useState('');
+  const [horaEntrada, setHoraEntrada] = useState("");
+  const [horaSaida, setHoraSaida] = useState("");
+  const [tempoTotal, setTempoTotal] = useState("");
   const [valorTotal, setValorTotal] = useState(0);
   const impressaoRef = useRef();
 
   useEffect(() => {
     if (horaEntrada && horaSaida) {
-      const [hIn, mIn] = horaEntrada.split(':').map(Number);
-      const [hOut, mOut] = horaSaida.split(':').map(Number);
+      const [hIn, mIn] = horaEntrada.split(":").map(Number);
+      const [hOut, mOut] = horaSaida.split(":").map(Number);
 
       const entrada = new Date();
       entrada.setHours(hIn, mIn, 0, 0);
@@ -297,7 +296,7 @@ function CupomEstacionamento() {
       saida.setHours(hOut, mOut, 0, 0);
 
       if (saida < entrada) {
-        setTempoTotal('Saída antes da entrada');
+        setTempoTotal("Saída antes da entrada");
         setValorTotal(0);
         return;
       }
@@ -315,21 +314,21 @@ function CupomEstacionamento() {
   }, [horaEntrada, horaSaida]);
 
   const gerarCupomTexto = () => {
-    const linha = (texto = '') => texto.padEnd(80, ' ') + '\n';
-    const centro = (texto = '') =>
-      texto.padStart((80 + texto.length) / 2, ' ').padEnd(80, ' ') + '\n';
+    const linha = (texto = "") => texto.padEnd(80, " ") + "\n";
+    const centro = (texto = "") =>
+      texto.padStart((80 + texto.length) / 2, " ").padEnd(80, " ") + "\n";
 
-    let texto = '';
-    texto += centro('SIS PARK ESTACIONAMENTO');
-    texto += centro('CUPOM DE ESTACIONAMENTO');
-    texto += linha('-'.repeat(80));
+    let texto = "";
+    texto += centro("SIS PARK ESTACIONAMENTO");
+    texto += centro("CUPOM DE ESTACIONAMENTO");
+    texto += linha("-".repeat(80));
     texto += linha(`Entrada: ${horaEntrada}`);
     texto += linha(`Saída  : ${horaSaida}`);
     texto += linha(`Tempo  : ${tempoTotal}`);
     texto += linha(`Valor  : R$ ${valorTotal.toFixed(2)}`);
-    texto += linha('-'.repeat(80));
-    texto += centro('OBRIGADO POR UTILIZAR!');
-    texto += '\n\n\n';
+    texto += linha("-".repeat(80));
+    texto += centro("OBRIGADO POR UTILIZAR!");
+    texto += "\n\n\n";
 
     return texto;
   };
@@ -342,47 +341,50 @@ function CupomEstacionamento() {
 
   return (
     <>
-  
-    <div className="container">
-      <h1>Controle de Estacionamento</h1>
+      <div className="container">
+        <h1>Controle de Estacionamento</h1>
 
-      {/* TODOS os campos agrupados corretamente */}
-      <div className="formulario">
-        <div className="placa">
-          <label>Placa do Veiculo</label>
-          <input type="text"/>
-        </div>
+        {/* TODOS os campos agrupados corretamente */}
+        <div className="formulario">
+          <div className="placa">
+            <label>Placa do Veiculo</label>
+            <input type="text" />
+          </div>
+
+          <div className="campo">
+            <label>Hora de entrada:</label>
+            <input
+              type="time"
+              value={horaEntrada}
+              onChange={(e) => setHoraEntrada(e.target.value)}
+            />
+          </div>
+
+          <div className="campo">
+            <label>Hora de saída:</label>
+            <input
+              type="time"
+              value={horaSaida}
+              onChange={(e) => setHoraSaida(e.target.value)}
+            />
+          </div>
        
-        <div className="campo">
-          <label>Hora de entrada:</label>
-          <input
-            type="time"
-            value={horaEntrada}
-            onChange={(e) => setHoraEntrada(e.target.value)}
-          />
+
+
+
+
         </div>
 
-        <div className="campo">
-          <label>Hora de saída:</label>
-          <input
-            type="time"
-            value={horaSaida}
-            onChange={(e) => setHoraSaida(e.target.value)}
-          />
-        </div>
+        {/* Cupom visível na tela */}
+        <Impressao ref={impressaoRef} conteudo={gerarCupomTexto()} />
+
+        <button className="botao-imprimir" onClick={handlePrint}>
+          Imprimir Cupom
+        </button>
+       
       </div>
-
-      {/* Cupom visível na tela */}
-      <Impressao ref={impressaoRef} conteudo={gerarCupomTexto()} />
-
-      <button className="botao-imprimir" onClick={handlePrint}>
-        Imprimir Cupom
-      </button>
-    </div>
-  </>
-);
-
+    </>
+  );
 }
 
 export default CupomEstacionamento;
-

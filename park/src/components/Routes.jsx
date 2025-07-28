@@ -21,6 +21,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home/Home";        // corrigido
 import Servicos from "../pages/Servicos/Servicos";
 import Veiculos from "../pages/Veiculos/Veiculos"; // adicionado
+import Abertos from "../pages/Abertos/Abertos"
 
 
 export default function AppRoutes() {
@@ -29,6 +30,7 @@ export default function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/servicos" element={<Servicos />} />
       <Route path="/veiculos" element={<Veiculos />} />
+      <Route path="/Abertos"  element={<Abertos/>} />
     </Routes>
   );
 }

@@ -13,3 +13,8 @@ If you are developing a production application, we recommend using TypeScript wi
 
 # npm install
 #  npm install react-router-dom
+
+
+## // link do video aula https://www.youtube.com/watch?v=_gHr2Pe5LCY&t=984s
+
+## https://www.youtube.com/watch?v=_gHr2Pe5LCY&t=722s 35:11 minutos

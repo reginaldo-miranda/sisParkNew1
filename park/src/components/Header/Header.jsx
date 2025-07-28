@@ -51,6 +51,9 @@ export default function Header() {
               <Link to="/Veiculos">Veículos</Link>
             </li>
             <li>
+              <Link to="Abertos">Abertos</Link>
+            </li>
+            <li>
               <Link to="/concluidos">Concluídos</Link>
             </li>
             <li>
