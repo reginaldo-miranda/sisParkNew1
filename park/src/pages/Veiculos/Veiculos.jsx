@@ -272,7 +272,7 @@ function CupomEstacionamento() {
 
 export default CupomEstacionamento;
 */
-
+/* boa funcionando
 import React, { useState, useEffect, useRef } from "react";
 import Impressao from "../../components/Impressao";
 import "../Veiculos/Veiculos.css"; // ou "../Veiculos/Veiculos.css" dependendo do caminho
@@ -344,7 +344,7 @@ function CupomEstacionamento() {
       <div className="container">
         <h1>Controle de Estacionamento</h1>
 
-        {/* TODOS os campos agrupados corretamente */}
+        {/* TODOS os campos agrupados corretamente /}
         <div className="formulario">
           <div className="placa">
             <label>Placa do Veiculo</label>
@@ -368,23 +368,203 @@ function CupomEstacionamento() {
               onChange={(e) => setHoraSaida(e.target.value)}
             />
           </div>
-       
-
-
-
-
         </div>
 
-        {/* Cupom visível na tela */}
+        {/* Cupom visível na tela /}
         <Impressao ref={impressaoRef} conteudo={gerarCupomTexto()} />
 
         <button className="botao-imprimir" onClick={handlePrint}>
           Imprimir Cupom
         </button>
-       
       </div>
     </>
   );
 }
 
 export default CupomEstacionamento;
+*/
+
+
+import React, { useState, useEffect } from "react";
+
+const API_URL = "http://localhost:3000/veiculos";
+
+function EstacionamentoApp() {
+  const [veiculos, setVeiculos] = useState([]);
+  const [form, setForm] = useState({
+    placa: "",
+    marca: "",
+    modelo: "",
+    cor: "",
+    ano: "",
+  });
+
+  const [saidaHora, setSaidaHora] = useState("");
+  const [selectedVeiculo, setSelectedVeiculo] = useState(null);
+
+  // Busca veículos com status "aberto"
+  async function fetchVeiculos() {
+    try {
+      const res = await fetch(`${API_URL}?status=aberto`);
+      const data = await res.json();
+      setVeiculos(data);
+    } catch (error) {
+      alert("Erro ao buscar veículos: " + error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchVeiculos();
+  }, []);
+
+  // Cadastrar nova entrada
+  async function handleAdd(e) {
+    e.preventDefault();
+    if (!form.placa) {
+      alert("Informe a placa");
+      return;
+    }
+
+    const newEntry = {
+      ...form,
+      horaEntrada: new Date().toISOString(),
+      status: "aberto",
+    };
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newEntry),
+      });
+      if (!res.ok) throw new Error("Erro ao cadastrar");
+      setForm({ placa: "", marca: "", modelo: "", cor: "", ano: "" });
+      fetchVeiculos();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  // Seleciona veículo para fechar vaga
+  function handleSelectVeiculo(veiculo) {
+    setSelectedVeiculo(veiculo);
+    setSaidaHora(new Date().toISOString().slice(0, 16)); // input tipo datetime-local
+  }
+
+  // Calcula valor (exemplo simples: R$5 por hora)
+  function calcularValor(horaEntrada, horaSaida) {
+    const entrada = new Date(horaEntrada);
+    const saida = new Date(horaSaida);
+    const diffMs = saida - entrada;
+    const diffHoras = Math.ceil(diffMs / (1000 * 60 * 60));
+    return diffHoras * 5; // R$5/hora
+  }
+
+  // Fechar vaga (atualizar registro)
+  async function handleFechar(e) {
+    e.preventDefault();
+    if (!saidaHora) {
+      alert("Informe a hora de saída");
+      return;
+    }
+
+    const valorPago = calcularValor(selectedVeiculo.horaEntrada, saidaHora);
+
+    try {
+      const res = await fetch(`${API_URL}/${selectedVeiculo.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          horaSaida: new Date(saidaHora).toISOString(),
+          valorPago,
+          status: "fechado",
+        }),
+      });
+      if (!res.ok) throw new Error("Erro ao fechar vaga");
+      setSelectedVeiculo(null);
+      fetchVeiculos();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  return (
+    <div style={{ padding: 20, maxWidth: 600, margin: "auto" }}>
+      <h2>Cadastro de Entrada</h2>
+      <form onSubmit={handleAdd} style={{ marginBottom: 20 }}>
+        <input
+          placeholder="Placa"
+          value={form.placa}
+          onChange={(e) => setForm({ ...form, placa: e.target.value })}
+          required
+        />
+        <input
+          placeholder="Marca"
+          value={form.marca}
+          onChange={(e) => setForm({ ...form, marca: e.target.value })}
+        />
+        <input
+          placeholder="Modelo"
+          value={form.modelo}
+          onChange={(e) => setForm({ ...form, modelo: e.target.value })}
+        />
+        <input
+          placeholder="Cor"
+          value={form.cor}
+          onChange={(e) => setForm({ ...form, cor: e.target.value })}
+        />
+        <input
+          placeholder="Ano"
+          value={form.ano}
+          onChange={(e) => setForm({ ...form, ano: e.target.value })}
+        />
+        <button type="submit">Adicionar Entrada</button>
+      </form>
+
+      <h2>Veículos Estacionados (Abertos)</h2>
+      {veiculos.length === 0 && <p>Nenhum veículo estacionado.</p>}
+      <ul>
+        {veiculos.map((v) => (
+          <li key={v.id} style={{ marginBottom: 10 }}>
+            <b>{v.placa}</b> - {v.marca} {v.modelo} | Entrada:{" "}
+            {new Date(v.horaEntrada).toLocaleString()}
+            <button
+              style={{ marginLeft: 10 }}
+              onClick={() => handleSelectVeiculo(v)}
+            >
+              Fechar vaga
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {selectedVeiculo && (
+        <form onSubmit={handleFechar} style={{ marginTop: 20 }}>
+          <h3>Fechar vaga - {selectedVeiculo.placa}</h3>
+          <label>
+            Hora Saída:
+            <input
+              type="datetime-local"
+              value={saidaHora}
+              onChange={(e) => setSaidaHora(e.target.value)}
+              required
+            />
+          </label>
+          <button type="submit" style={{ marginLeft: 10 }}>
+            Confirmar Saída
+          </button>
+          <button
+            type="button"
+            onClick={() => setSelectedVeiculo(null)}
+            style={{ marginLeft: 10 }}
+          >
+            Cancelar
+          </button>
+        </form>
+      )}
+    </div>
+  );
+}
+
+export default EstacionamentoApp;
+

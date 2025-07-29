@@ -87,8 +87,8 @@ function CupomEstacionamento() {
 
 export default CupomEstacionamento;
 */
-
-// src/components/Impressao.jsx
+/*
+// src/components/Impressao.jsx boa funcionando 
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
 const Impressao = forwardRef(({ conteudo }, ref) => {
@@ -107,6 +107,60 @@ const Impressao = forwardRef(({ conteudo }, ref) => {
     <pre
       ref={printRef}
       style={{ fontFamily: 'monospace', border: '1px solid #ccc', padding: '10px', marginTop: '20px' }}
+    >
+      {conteudo}
+    </pre>
+  );
+});
+
+export default Impressao;
+
+*/
+
+import React, { forwardRef, useImperativeHandle } from 'react';
+
+const Impressao = forwardRef(({ conteudo }, ref) => {
+  useImperativeHandle(ref, () => ({
+    imprimir() {
+      const janela = window.open('', '', 'width=600,height=800');
+      if (!janela) {
+        alert('Não foi possível abrir a janela de impressão. Verifique o bloqueador de popups.');
+        return;
+      }
+      janela.document.write(`
+        <html>
+          <head>
+            <title>Impressão</title>
+            <style>
+              body { font-family: monospace; margin: 20px; white-space: pre-wrap; }
+              @media print {
+                body { margin: 0; }
+              }
+            </style>
+          </head>
+          <body>
+            <pre>${conteudo}</pre>
+            <script>
+              window.focus();
+              window.print();
+              window.close();
+            <\/script>
+          </body>
+        </html>
+      `);
+      janela.document.close();
+    },
+  }));
+
+  return (
+    <pre
+      style={{
+        fontFamily: 'monospace',
+        border: '1px solid #ccc',
+        padding: '10px',
+        marginTop: '20px',
+        whiteSpace: 'pre-wrap',
+      }}
     >
       {conteudo}
     </pre>

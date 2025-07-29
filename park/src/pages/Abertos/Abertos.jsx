@@ -110,7 +110,7 @@ export default function Abertos() {
 }
 */
 /* versao com impressao */
-
+/* versao boa 
 import { useState } from "react";
 import "../Abertos/Abertos.css";
 
@@ -275,7 +275,7 @@ export default function Abertos() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal /}
       {modalAberta && (
         <div
           className="modal-fundo"
@@ -349,3 +349,65 @@ export default function Abertos() {
     </>
   );
 }
+  */
+
+import React, { useState, useEffect } from "react";
+
+const API_URL = "http://localhost:3000/veiculos";
+
+function EstacionamentoApp() {
+  const [veiculos, setVeiculos] = useState([]);
+
+  async function fetchVeiculos() {
+    try {
+      const res = await fetch(`${API_URL}?status=aberto`);
+      const data = await res.json();
+      if (!Array.isArray(data)) throw new Error("Dados inválidos");
+      setVeiculos(data);
+    } catch (error) {
+      alert("Erro ao buscar veículos: " + error.message);
+    }
+  }
+
+  async function handleExcluir(id) {
+    if (!window.confirm("Tem certeza que deseja excluir este veículo?")) return;
+
+    try {
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Erro ao excluir");
+      fetchVeiculos(); // Recarrega a lista
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchVeiculos();
+  }, []);
+
+  return (
+    <div style={{ padding: 20, maxWidth: 600, margin: "auto" }}>
+      <h2>Veículos Estacionados (Abertos)</h2>
+      {veiculos.length === 0 && <p>Nenhum veículo estacionado.</p>}
+      <ul>
+        {veiculos.map((v) => (
+          <li key={v.id} style={{ marginBottom: 10 }}>
+            <b>{v.placa}</b> - {v.marca} {v.modelo} | Entrada:{" "}
+            {new Date(v.horaEntrada).toLocaleString()}
+            <button
+              style={{ marginLeft: 10, background: "red", color: "white" }}
+              onClick={() => handleExcluir(v.id)}
+            >
+              Excluir
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default EstacionamentoApp;
+
