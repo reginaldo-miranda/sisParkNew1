@@ -54,7 +54,7 @@ export default function Header() {
               <Link to="Abertos">Abertos</Link>
             </li>
             <li>
-              <Link to="/concluidos">Concluídos</Link>
+              <Link to="/Concluidos">Concluídos</Link>
             </li>
             <li>
               <Link to="/sair">Sair</Link>

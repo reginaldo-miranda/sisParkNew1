@@ -234,6 +234,30 @@ app.delete("/:model/:id", validarModelo, async (req, res) => {
   }
 });
 
+// Rota específica para listar veículos concluídos e somar o total
+app.get("/veiculos/concluidos", async (req, res) => {
+  try {
+    const concluidos = await prisma.veiculos.findMany({
+      where: { 
+        status: { 
+          in: ["fechado", "concluído"] 
+        } 
+      },
+      orderBy: { horaSaida: "desc" },
+    });
+
+    const total = concluidos.reduce((acc, item) => acc + (item.valorPago || 0), 0);
+
+    res.json({ concluidos, total });
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar veículos concluídos" });
+  }
+});
+
+
+
+
+
 app.listen(3000, () => {
   console.log("API genérica com MongoDB rodando na porta 3000");
 });
