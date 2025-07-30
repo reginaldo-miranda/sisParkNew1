@@ -1,19 +1,24 @@
+
+
 {
   "name": "devclub",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend API Express + Prisma + MongoDB",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reginaldo-miranda/devClub.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Seu Nome",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/reginaldo-miranda/devClub/issues"
   },
@@ -21,10 +26,11 @@
   "dependencies": {
     "bson": "^6.10.4",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "@prisma/client": "^6.13.0"
   },
   "devDependencies": {
-    "@prisma/client": "^6.13.0",
+    "nodemon": "^3.0.3",
     "prisma": "^6.13.0"
   }
 }
