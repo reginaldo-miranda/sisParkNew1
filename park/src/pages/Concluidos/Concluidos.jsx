@@ -8,7 +8,7 @@
 }*/
 
 import React, { useEffect, useState } from "react";
-import "./concluidos.css"; // (adicione estilos se quiser)
+import "./Concluidos.css"; // (adicione estilos se quiser)
 
 export default function Concluidos() {
   const [veiculos, setVeiculos] = useState([]);
