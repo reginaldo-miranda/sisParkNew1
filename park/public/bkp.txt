@@ -32,3 +32,5 @@ vite.config
   "outputDirectory": "dist",
   "framework": "vite"
 }
+
+import "../../pages/Home/home.css"; // ajuste conforme necessário
