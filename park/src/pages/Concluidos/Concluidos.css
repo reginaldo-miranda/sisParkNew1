@@ -1,6 +1,7 @@
 .concluidos-container {
     padding: 20px;
     font-family: Arial;
+    
   }
   
   .tabela {
@@ -20,4 +21,8 @@
     font-size: 1.2em;
     color: #0a5;
   }
-  
+  .titulo{
+    display: flex;
+    background-color: aqua;
+    justify-content: center;
+  }

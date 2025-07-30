@@ -195,5 +195,14 @@
     width: 45%;
     transition: background-color 0.3s ease;
   }
+
   
+  .titulo{
+    
+      display: flex;
+      background-color: aqua;
+      justify-content: center;
+      
+  }
+
   

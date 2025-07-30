@@ -490,7 +490,7 @@ function EstacionamentoApp() {
 
   return (
     <div style={{ padding: 20, maxWidth: 600, margin: "auto" }}>
-      <h2>Cadastro de Entrada</h2>
+      <h2 className="titulo" >Cadastro de Entrada</h2>
       <form onSubmit={handleAdd} style={{ marginBottom: 20 }}>
         <input
           placeholder="Placa"
@@ -521,7 +521,7 @@ function EstacionamentoApp() {
         <button type="submit">Adicionar Entrada</button>
       </form>
 
-      <h2>Veículos Estacionados (Abertos)</h2>
+      <h2 className="titulo" >Veículos Estacionados (Abertos)</h2>
       {veiculos.length === 0 && <p>Nenhum veículo estacionado.</p>}
       <ul>
         {veiculos.map((v) => (

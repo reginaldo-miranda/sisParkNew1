@@ -31,7 +31,7 @@ export default function Concluidos() {
 
   return (
     <div className="concluidos-container">
-      <h2>Veículos Concluídos</h2>
+      <h2 className="titulo">Veículos Concluídos</h2>
 
       <table className="tabela">
         <thead>

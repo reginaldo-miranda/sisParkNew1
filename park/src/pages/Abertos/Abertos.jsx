@@ -389,7 +389,7 @@ function EstacionamentoApp() {
 
   return (
     <div style={{ padding: 20, maxWidth: 600, margin: "auto" }}>
-      <h2>Veículos Estacionados (Abertos)</h2>
+      <h2 className="titulo" >Veículos Estacionados (Abertos)</h2>
       {veiculos.length === 0 && <p>Nenhum veículo estacionado.</p>}
       <ul>
         {veiculos.map((v) => (

@@ -255,6 +255,74 @@ app.get("/veiculos/concluidos", async (req, res) => {
 });
 
 
+//-------------------------------------------
+
+// Rota para listar veículos abertos
+app.get("/veiculos/abertos", async (req, res) => {
+  try {
+    const abertos = await prisma.veiculos.findMany({
+      where: { status: "aberto" },
+      orderBy: { horaEntrada: "desc" },
+    });
+
+    res.json(abertos);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao buscar veículos abertos" });
+  }
+});
+
+
+
+//-----------------------------------------
+
+//----------------------------------------
+
+// Rota para resumo diário (últimos 7 dias)
+app.get("/veiculos/resumo-diario", async (req, res) => {
+  try {
+    const hoje = new Date();
+    const seteDiasAtras = new Date();
+    seteDiasAtras.setDate(hoje.getDate() - 6); // inclui hoje
+
+    const todos = await prisma.veiculos.findMany({
+      where: {
+        status: { in: ["fechado", "concluído"] },
+        horaSaida: { gte: seteDiasAtras },
+      },
+    });
+
+    // Agrupa por data
+    const resumo = {};
+
+    for (const item of todos) {
+      const data = new Date(item.horaSaida).toLocaleDateString("pt-BR");
+      resumo[data] = (resumo[data] || 0) + (item.valorPago || 0);
+    }
+
+    // Preenche os dias que não têm registros
+    const labels = [];
+    const dataHoje = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(dataHoje.getDate() - i);
+      const label = d.toLocaleDateString("pt-BR");
+      labels.push(label);
+    }
+
+    const resultadoFinal = labels.map((label) => ({
+      data: label,
+      total: resumo[label] || 0,
+    }));
+
+    res.json(resultadoFinal);
+  } catch (error) {
+    res.status(500).json({ error: "Erro no resumo diário" });
+  }
+});
+
+
+
+//------------------------------------------
 
 
 

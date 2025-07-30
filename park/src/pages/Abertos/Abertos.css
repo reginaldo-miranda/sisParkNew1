@@ -84,3 +84,10 @@
   width: 300px;
   margin-bottom: 20px;
 }
+.titulo{
+    
+  display: flex;
+  background-color: aqua;
+  justify-content: center;
+  
+}
