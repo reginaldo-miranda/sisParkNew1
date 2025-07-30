@@ -100,11 +100,13 @@ export default function Home() {
 
 import React, { useEffect, useState } from "react";
 import api from "../../components/services/api";
+import './home.css';
+
 import {
   PieChart, Pie, Cell,
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer
 } from "recharts";
-import "./home.css";
+  
 
 export default function Home() {
   const [abertos, setAbertos] = useState(0);
