@@ -1,0 +1,28 @@
+.concluidos-container {
+    padding: 20px;
+    font-family: Arial;
+    
+  }
+  
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .tabela th, .tabela td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .total {
+    margin-top: 15px;
+    font-size: 1.2em;
+    color: #0a5;
+  }
+  .titulo{
+    display: flex;
+    background-color: aqua;
+    justify-content: center;
+  }
