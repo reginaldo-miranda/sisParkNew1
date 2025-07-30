@@ -100,7 +100,7 @@ export default function Home() {
 
 import React, { useEffect, useState } from "react";
 import api from "../../components/services/api";
-import './home.css';
+import './Style.css';
 
 import {
   PieChart, Pie, Cell,
