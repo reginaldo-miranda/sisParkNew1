@@ -104,7 +104,7 @@ import {
   PieChart, Pie, Cell,
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer
 } from "recharts";
-import "./home.css";
+import "../../pages/Home/home.css";
 
 export default function Home() {
   const [abertos, setAbertos] = useState(0);
