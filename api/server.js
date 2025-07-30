@@ -154,6 +154,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(cors({
+  origin: "*", // ou coloque a origem exata do seu frontend para segurança
+}));
+
 // Lista branca de modelos permitidos
 const allowedModels = ["User", "veiculos", "servicos"];
 
