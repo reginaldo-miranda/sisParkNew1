@@ -105,7 +105,9 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer
 } from "recharts";
 //import "../../pages/Home/home.css";
-import "./home.css";
+
+import "../Home/home.css"
+
 
 
 export default function Home() {
