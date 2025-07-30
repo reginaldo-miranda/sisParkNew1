@@ -1,12 +1,6 @@
 
 
 {
-  "_buildCommand": "npm run build:all",
-  "_outputDirectory": "dist",
-  "_framework": "vite",
-
-
-
 
   "builds": [{ "src": "src/server.js", "use": "@vercel/node" }],
   "routes": [{ "src": "/(.*)", "dest": "src/server.js" }]
