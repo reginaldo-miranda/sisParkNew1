@@ -105,10 +105,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer
 } from "recharts";
 //import "../../pages/Home/home.css";
-
-import "../Home/home.css"
-
-
+import "../../pages/Home/home.css";
 
 export default function Home() {
   const [abertos, setAbertos] = useState(0);
