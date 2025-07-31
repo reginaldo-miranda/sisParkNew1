@@ -8,6 +8,7 @@ const api = axios.create({
 
 export default api;
 */
+/*
 import axios from "axios";
 const API_URL =
   import.meta.env.MODE === "development"
@@ -19,5 +20,17 @@ const api = axios.create({
 });
 
 export default api;
+*/
+// src/services/api.js ou onde estiver
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+const api = axios.create({
+  baseURL: API_URL,
+});
+
+export default api;
+
 
 
